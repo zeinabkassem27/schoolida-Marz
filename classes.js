@@ -1,5 +1,5 @@
 class Staff {
-    firt_name;
+    static teacher_array= [];
      constructor(firt_name, last_name, phone_number, address, personal_email, role ,school_email, salary) {
        this.firt_name = firt_name;
        this.last_name = last_name;
@@ -10,7 +10,62 @@ class Staff {
        this.school_email=school_email;
        this.salary=salary;
      }
-   }
+    teacher_array =[];
+    staff_array =[];
+
+    addTeacher = (c)=>{ 
+        if(this instanceof Principle){
+            let teacher = new Teacher(c.floor,c.classes, c.subject, c.type, c.first, c.last, c.phone, c.address, c.p_email, c.s_email, c.salary);
+            Staff.teacher_array.push(teacher);
+            console.log("array ", Staff.teacher_array);
+        }
+    }
+
+    addStaff = (emp,cons)=>{
+        let test= ({
+            first_name: cons.first_name,
+            last_name: cons.last_name,
+            schoolida_email: cons.schoolida_email
+        })
+        switch(emp){
+            case "Teacher":
+                Staff.staff_array.push({
+                    first_name: cons.first_name,
+                    last_name: cons.last_name,
+                    schoolida_email: cons.schoolida_email,
+                    role: emp,
+                    floors_covered: cons.floors_covered,
+                    classes_taught: cons.classes_taught,
+                    subject: cons.subject
+                })
+                break;
+            case "conselor":
+                test.push({
+                    first_name: cons.first_name,
+                    last_name: cons.last_name,
+                    schoolida_email: cons.schoolida_email,
+                    role: emp,
+                    office_days: cons.office_days, 
+                    office_hours: cons.office_hours
+                })
+                break;
+                default:
+                    test.push({
+                        first_name: cons.first_name,
+                        last_name: cons.last_name,
+                        schoolida_email: cons.schoolida_email,
+                        role: emp,
+                    })
+
+        }
+    }
+    viewEmployees=()=>{
+     console.log(Staff.staff_array)
+    }
+}
+     
+   Staff.teacher_array=[];
+   Staff.staff_array=[];
  
    class Bank{
      constructor(bank_IBAN,bank_name,bank_branch){
@@ -24,7 +79,10 @@ class Staff {
    class Principle extends Staff{
      constructor(first,last,phone,address,p_email,s_email,salary){
        super(first, last,phone, address, p_email, "principle",s_email,salary);
-     }  
+     }
+  
+
+
    }
  
    class Conselor extends Staff{
@@ -48,13 +106,16 @@ class Staff {
    }
  
  class Teacher extends Staff{
+    
    constructor(floor,classes,subject,type,first,last,phone,address,p_email,s_email,salary){
      super(first, last,phone, address, p_email, "teacher",s_email,salary);
      this.floor = floor;
      this.classes = classes;
      this.subject = subject;
      this.type = type;
-   }  
+     //Teacher.prototype.teacher_array = Teacher.prototype.teacher_array.push(this);
+   }
+   
  }
  
    class PartTime extends Teacher{
@@ -105,3 +166,46 @@ class Staff {
  
  
    //let teacher= new Teacher(2,1,2,3,"zeinab","kassem",123,"address","p@hotmail.com","s@hotmail.com",80)
+   let principle= new Principle("first","last",123,"address","p_email","s_email",300);
+   let teacher_constructor=
+   ({
+       floor:2,
+       classes:1,
+       subject:"engl",
+       type:"part",
+       first:"zeinab",
+       last:"kassem",
+       phone:123,
+       address:"beirut",
+       p_email:"zi@hotmail.com",
+       s_email:"s@hotmail.com",
+       salary:300
+    });
+    let teacher_constructor3=
+    ({
+        floor:2,
+        classes:1,
+        subject:"engl",
+        type:"part",
+        first:"ruy",
+        last:"rudy",
+        phone:123,
+        address:"beirut",
+        p_email:"zi@hotmail.com",
+        s_email:"s@hotmail.com",
+        salary:300
+     })
+
+     let test=
+     ({
+         first_name:2,
+         last_name:1,
+         schoolida_email:"part",
+         floors_covered:"ruy",
+         classes_taught:"rudy",
+         subject:123,
+      })
+
+   principle.addTeacher(teacher_constructor);
+   principle.addTeacher(teacher_constructor3);
+   principle.addStaff("Teacher",test)
